@@ -15,27 +15,24 @@ document.addEventListener("click", (Event) => {
 	const clickedElement = <HTMLElement>Event.target;
 
 	if (clickedElement.closest("[data-toggle]")) {
-		//get the clicked element
 		const el: JQuery<HTMLElement> = $(clickedElement).closest("[data-toggle]");
 		let $target: string | JQuery<HTMLElement> = el.attr("data-target") || el;
 		const htmlEvent: string = el.attr("data-toggle") || "";
-		//check if the element has a data-toggle attribute otherwise return the same element
+
 		if (htmlEvent === "logOff") {
 			logOff();
 			return;
 		}
-		//if the target is a string
+
 		if (typeof $target === "string") {
-			//check if the string contain parent, get the parent element
 			if ($target.indexOf("parent") !== -1) {
 				const num = parseInt($target.split("(")[1].slice(0, -1));
 				$target = parentNode(el, num);
 			} else {
-				//else get the element by the selector
 				$target = $($target);
 			}
 		}
-		//based on the data-toggle attribute get the action
+
 		actions[htmlEvent].toggle($target);
 	}
 

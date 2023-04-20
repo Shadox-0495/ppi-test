@@ -1,20 +1,20 @@
 {
 	"extends": "./tsconfig.path.json",
 	"compilerOptions": {
-		"strict": true, //research
-		"moduleResolution": "node", //research
+		"strict": true,
+		"moduleResolution": "node",
 		"outDir": "./dist/",
 		"noImplicitAny": true,
 		"module": "es2022",
 		"target": "es2017",
 		"jsx": "react",
-		"allowJs": true, //research
-		"skipLibCheck": true, //research
-		"esModuleInterop": true, //research
-		"allowSyntheticDefaultImports": true, //research
-		"forceConsistentCasingInFileNames": true, //research
-		"resolveJsonModule": true, //research
-		"isolatedModules": true, //research
+		"allowJs": true,
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
 		"strictPropertyInitialization": false
 	}
 }

@@ -13,7 +13,7 @@ const __dirname = path.dirname(__filename);
 
 let entry = {};
 entry["shared"] = { import: ["@features/globals.ts"] };
-//loop through the pages folder and create a new html webpack plugin for each one
+
 let plugins = fs.readdirSync(path.resolve(__dirname, "./src/ts/")).map((file) => {
 	let name = file.split(".")[0];
 	entry[name] = { import: `@ts/${name}.ts` };
@@ -33,14 +33,13 @@ plugins.push(
 	})
 );
 
-//push the global variable of the jquery library to the webpack bundle
 plugins.push(
 	new webpack.ProvidePlugin({
 		$: "jquery",
 		jQuery: "jquery",
 	})
 );
-//push the clean webpack plugin to the webpack plugins array
+
 plugins.push(new CleanWebpackPlugin());
 plugins.push(
 	new Dotenv({
@@ -58,10 +57,6 @@ plugins.push(
 					ignore: [`**/api/config/conexion.php`],
 				},
 			},
-			/*{
-				from: path.resolve(__dirname, `./manifest.json`),
-				to: path.resolve(__dirname, `./dist/manifest.json`),
-			},*/
 		],
 	})
 );
@@ -78,7 +73,6 @@ export default {
 		filename: "src/js/[name].[contenthash].js",
 	},
 
-	//create one js file per vendor
 	optimization: {
 		runtimeChunk: "single",
 		splitChunks: {
@@ -86,7 +80,6 @@ export default {
 			maxInitialRequests: Infinity,
 			minSize: 0,
 			cacheGroups: {
-				//combine all the vendor css into a single file
 				styles: {
 					name: "vendors",
 					test: /\.css$/,
@@ -98,12 +91,8 @@ export default {
 				vendor: {
 					test: /[\\/]node_modules[\\/]/,
 					name(module) {
-						// get the name. E.g. node_modules/packageName/not/this/part.js
-						// or node_modules/packageName
-						//if there is no node_modules skip.
 						if (module.context.indexOf("node_modules") === -1) return false;
 						const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
-						// npm package names are URL-safe, but some servers don't like @ symbols
 						return `vendors/npm.${packageName.replace("@", "")}`;
 					},
 				},

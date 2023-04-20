@@ -7,14 +7,13 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import ESLintPlugin from "eslint-webpack-plugin";
 import chokidar from "chokidar";
-//import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 let entry = {};
 entry["shared"] = { import: ["@features/globals.ts"] };
-//loop through the pages folder and create a new html webpack plugin for each one
+
 let plugins = fs.readdirSync(path.resolve(__dirname, "./src/ts/")).map((file) => {
 	let name = file.split(".")[0];
 	entry[name] = { import: `@ts/${name}.ts` };
@@ -26,14 +25,14 @@ let plugins = fs.readdirSync(path.resolve(__dirname, "./src/ts/")).map((file) =>
 		chunks: ["shared", name],
 	});
 });
-//push the global variable of the jquery library to the webpack bundle
+
 plugins.push(
 	new webpack.ProvidePlugin({
 		$: "jquery",
 		jQuery: "jquery",
 	})
 );
-//push the clean webpack plugin to the webpack plugins array
+
 plugins.push(new CleanWebpackPlugin());
 plugins.push(
 	new Dotenv({
@@ -41,12 +40,10 @@ plugins.push(
 	})
 );
 plugins.push(new ESLintPlugin({ extensions: ["ts"] }));
-//plugins.push(new BundleAnalyzerPlugin());
 
 const fileObserver = chokidar.watch(path.resolve(__dirname, "./api"), { ignored: /^\./, persistent: true, awaitWriteFinish: true });
 const targetApiDir = path.resolve(__dirname, "./../php-www/ppi");
 
-//file/dir observer to copy projects api folder into the server's folder -> PHP Server
 fileObserver
 	.on("add", (path) => {
 		const fileName = path.replace(`${__dirname}`, "");

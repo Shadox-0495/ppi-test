@@ -17,7 +17,3 @@ declare interface Window {
 	JSZip: any;
 	clipboardData: any;
 }
-
-declare interface Event {
-	originalEvent: any;
-}
