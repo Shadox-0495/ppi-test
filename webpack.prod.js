@@ -6,7 +6,6 @@ import webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import CopyPlugin from "copy-webpack-plugin";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -44,20 +43,6 @@ plugins.push(new CleanWebpackPlugin());
 plugins.push(
 	new Dotenv({
 		path: path.resolve(__dirname, `./.env.prod`),
-	})
-);
-plugins.push(
-	new CopyPlugin({
-		patterns: [
-			{
-				from: path.resolve(__dirname, `./api`),
-				to: path.resolve(__dirname, `./dist/api`),
-				globOptions: {
-					dot: true,
-					ignore: [`**/api/config/conexion.php`],
-				},
-			},
-		],
 	})
 );
 

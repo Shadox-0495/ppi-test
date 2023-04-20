@@ -1,5 +1,5 @@
 import { compileTemplate } from "@features/templates-loader";
-import { onlySpaces } from "@features/utils";
+import { onlySpaces, validEmail } from "@features/utils";
 import dataTable, { rowDataToObject } from "@components/datatables";
 import { ajax } from "@features/ajax";
 import Swal, { showAlert } from "@components/alert";
@@ -67,6 +67,11 @@ async function saveRecord(dbDt: DataTables.Api) {
 		.each((index, element) => {
 			if (onlySpaces($(element).val())) whiteSpace++;
 		});
+
+	if (!validEmail(<string>$("#email").val())) {
+		showAlert("", "error", "The email provided is not a valid email.", { timer: 3000 });
+		return;
+	}
 
 	if (whiteSpace > 0) {
 		showAlert("", "warning", "The form doesn't accept empty fields.", { timer: 3000 });
