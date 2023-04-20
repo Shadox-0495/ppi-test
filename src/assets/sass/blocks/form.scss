@@ -1,0 +1,46 @@
+.ui-form {
+	@include flex(column);
+	row-gap: 1rem;
+	border-radius: 0.5rem;
+	background-color: transparent;
+	padding: 2rem 1.5rem;
+	border-radius: 0.5rem;
+	box-shadow: none;
+	max-width: 100%;
+
+	&.small {
+		width: 400px;
+	}
+	&__header,
+	&__footer {
+		@include flex(row, null, center);
+		column-gap: 1rem;
+		width: 100%;
+		justify-content: center;
+	}
+	&__body {
+		@include flex(column);
+		row-gap: 2rem;
+		/*& > *:not(:is(button)) {
+			padding: 0.35em 0.75em 0.625em 0.75em;
+		}*/
+	}
+	&__header {
+		position: relative;
+		min-height: 2.5rem;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+		&__title {
+			font-size: 1.25rem;
+			font-weight: 700;
+			color: #000;
+			text-align: center;
+			flex-grow: 1;
+		}
+		&__close-btn {
+			position: absolute;
+			top: 50%;
+			right: 0;
+			transform: translateY(-50%);
+		}
+	}
+}

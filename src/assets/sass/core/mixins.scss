@@ -1,0 +1,155 @@
+@mixin css3-prefix($prop, $value) {
+	-webkit-#{$prop}: #{$value};
+	-moz-#{$prop}: #{$value};
+	-ms-#{$prop}: #{$value};
+	-o-#{$prop}: #{$value};
+	#{$prop}: #{$value};
+}
+
+@mixin keyframes($name) {
+	@-webkit-keyframes #{$name} {
+		@content;
+	}
+	@-moz-keyframes #{$name} {
+		@content;
+	}
+	@keyframes #{$name} {
+		@content;
+	}
+}
+
+@mixin abs-position($top: null, $right: null, $bottom: null, $left: null) {
+	position: absolute;
+	@if ($top) {
+		top: $top;
+	}
+	@if ($right) {
+		right: $right;
+	}
+	@if ($bottom) {
+		bottom: $bottom;
+	}
+	@if ($left) {
+		left: $left;
+	}
+}
+
+@mixin input-placeholder {
+	&.placeholder {
+		@content;
+	}
+	&:-moz-placeholder {
+		@content;
+	}
+	&::-moz-placeholder {
+		@content;
+	}
+	&:-ms-input-placeholder {
+		@content;
+	}
+	&::-webkit-input-placeholder {
+		@content;
+	}
+}
+
+@mixin webfont($family, $file, $weight: normal, $style: normal) {
+	@font-face {
+		font-family: $family;
+		src: url($file + ".eot");
+		src: url($file + ".eot?#iefix") format("embedded-opentype"), url($file + ".woff") format("woff"), url($file + ".ttf") format("truetype");
+		font-weight: $weight;
+		font-style: $style;
+		font-display: block;
+	}
+}
+
+@mixin flex($dir: null, $justify: null, $align: null) {
+	display: flex;
+	@if ($dir) {
+		flex-direction: $dir;
+	}
+	@if ($justify) {
+		justify-content: $justify;
+	}
+	@if ($align) {
+		align-items: $align;
+	}
+}
+
+@mixin scrollbar($thumbColor: null) {
+	scrollbar-width: auto;
+	/*scrollbar-color: var(--scroll-bar-thumb) var(--scroll-bar-track);*/
+
+	@if ($thumbColor) {
+		--scrollbarThumbColor: $thumbColor;
+	}
+
+	&::-webkit-scrollbar {
+		width: var(--scrollbarWidth);
+		height: var(--scrollbarWidth);
+		border-radius: 0px;
+		box-shadow: none;
+	}
+
+	&::-webkit-scrollbar-corner {
+		background: rgba(0, 0, 0, 0.5);
+	}
+
+	&::-webkit-scrollbar-track {
+		background: var(--scrollbarTrackColor);
+		border-radius: var(--scrollbarTrackBorderRadious);
+		box-shadow: none;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: var(--scrollbarThumbColor);
+		border-radius: var(--scrollbarThumbBorderRadious);
+		box-shadow: none;
+	}
+
+	/*scrollbar left/top border color should be consistent with containers color*/
+	/*&::-webkit-scrollbar-track:horizontal {
+		border-top: 8px solid $color;
+	}
+	&::-webkit-scrollbar-track:vertical {
+		border-left: 8px solid $color;
+	}
+
+	&::-webkit-scrollbar-thumb:horizontal {
+		border-top: 8px solid $color;
+	}
+	&::-webkit-scrollbar-thumb:vertical {
+		border-left: 8px solid $color;
+	}*/
+}
+
+@mixin fa-icon($icon: null, $size: null, $color: null) {
+	display: inline-block;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	font: var(--fa-font-solid);
+	@if ($icon) {
+		content: $icon;
+	}
+	@if ($size) {
+		font-size: $size;
+	} @else {
+		font-size: inherit;
+	}
+
+	@if ($color) {
+		color: $color;
+	} @else {
+		color: inherit;
+	}
+}
+
+@mixin truncate-text($line-limit: 1, $white-space-break: pre-wrap, $word-break-type: break-all, $overflow: ellipsis) {
+	display: -webkit-box;
+	-webkit-line-clamp: $line-limit;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: $overflow;
+	white-space: $white-space-break;
+	word-break: $word-break-type;
+}

@@ -1,0 +1,23 @@
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	font: inherit;
+	font-weight: 400;
+	line-height: 1.3rem;
+}
+
+html {
+	font-size: 11px;
+}
+
+svg {
+	fill: currentColor;
+	height: 100%;
+	width: 100%;
+}
+
+main {
+	padding: 1rem;
+}

@@ -1,0 +1,36 @@
+<script type="text/x-handlebars-template" id="dataTable">
+	<table id="{{id}}" class="js-dt-table {{class}}" data-type="{{type}}">
+		<thead>
+			{{#each haderRows}}
+				<tr>
+					{{#each this}}
+						<th
+							{{#if class}}class="{{class}}"{{/if}}
+							{{#if type}}data-type="{{type}}"{{/if}}
+							{{#if id}}data-name="{{id}}"{{/if}}
+							{{#if export}}data-export="{{export}}"{{/if}}
+						>{{label}}</th>
+					{{/each}}
+				</tr>
+			{{/each}}
+		</thead>
+	</table>
+</script>
+
+<script type="text/x-handlebars-template" id="user">
+	<form class="ui-form" id="record-form">
+		<div class="ui-form__body">
+			<js-textbox data-css-class="outlined" id="firstName" data-type="text" data-placeholder="First Name" data-autocomplete="off" data-required="yes"></js-textbox>
+			<js-textbox data-css-class="outlined" id="lastName" data-type="text" data-placeholder="Last Name" data-autocomplete="off" data-required="yes"></js-textbox>
+			<js-textbox data-css-class="outlined" id="email" data-type="text" data-placeholder="Email Adress" data-autocomplete="off" data-required="yes"></js-textbox>
+			<js-textbox data-css-class="outlined" id="phone" data-type="text" data-placeholder="Phone Number" data-autocomplete="off" data-required="yes"></js-textbox>
+			<js-textbox data-css-class="outlined" id="zip" data-type="text" data-placeholder="Residential Zip Code" data-autocomplete="off" data-required="yes"></js-textbox>
+		</div>
+		<div class="ui-form__footer">
+			<button data-type="success" id="btn-save-record">
+				<div class="svg-icon"><svg viewBox="0 0 14 14"><use xlink:href="#svg-save"></use></svg></div>
+				Guardar
+			</button>
+		</div>
+	</form>
+</script>

@@ -1,0 +1,70 @@
+button {
+	border-radius: 0.25rem;
+	padding: 0.5rem 1rem;
+	@include flex(row, null, center);
+	column-gap: 0.5rem;
+	cursor: pointer;
+	font-weight: 600;
+	height: 2.5rem;
+	font-size: inherit;
+	outline: none;
+	background-color: var(--button-primary-background);
+	color: var(--button-primary-text-color);
+	border: 1px solid var(--button-primary-border-color);
+	transition: var(--button-primary-transition);
+
+	&:is(:hover, :focus, :focus-visible) {
+		background-color: var(--button-primary-hover-background);
+		color: var(--button-primary-hover-text-color);
+		border: 1px solid var(--button-primary-hover-border-color);
+	}
+
+	&[data-type="success"] {
+		background-color: var(--button-success-background);
+		color: var(--button-success-text-color);
+		border: 1px solid var(--button-success-border-color);
+		transition: var(--button-success-transition);
+		&:is(:hover, :focus, :focus-visible) {
+			background-color: var(--button-success-hover-background);
+			color: var(--button-success-hover-text-color);
+			border: 1px solid var(--button-success-hover-border-color);
+		}
+	}
+
+	&[data-type="warning"] {
+		background-color: var(--button-warning-background);
+		color: var(--button-warning-text-color);
+		border: 1px solid var(--button-warning-border-color);
+		transition: var(--button-warning-transition);
+		&:is(:hover, :focus, :focus-visible) {
+			background-color: var(--button-warning-hover-background);
+			color: var(--button-warning-hover-text-color);
+			border: 1px solid var(--button-warning-hover-border-color);
+		}
+	}
+
+	&[data-type="danger"] {
+		background-color: var(--button-danger-background);
+		color: var(--button-danger-text-color);
+		border: 1px solid var(--button-danger-border-color);
+		transition: var(--button-danger-transition);
+		&:is(:hover, :focus, :focus-visible) {
+			background-color: var(--button-danger-hover-background);
+			color: var(--button-danger-hover-text-color);
+			border: 1px solid var(--button-danger-hover-border-color);
+		}
+	}
+
+	&:disabled {
+		background-color: var(--button-disabled-background);
+		color: var(--button-disabled-text-color);
+		border: 1px solid var(--button-disabled-border-color);
+		transition: var(--button-disabled-transition);
+		cursor: not-allowed;
+		&:is(:hover, :focus, :focus-visible) {
+			background-color: var(--button-disabled-hover-background);
+			color: var(--button-disabled-hover-text-color);
+			border: 1px solid var(--button-disabled-hover-border-color);
+		}
+	}
+}

@@ -1,0 +1,77 @@
+.js-dropdown {
+	position: relative;
+	width: fit-content;
+	/*&__button {
+		--button-background-color: #007bff;
+		--button-text-color: #fff;
+		--button-border-color: var(--button-background-color);
+		--button-hover-background-color: #0069d9;
+		--button-hover-text-color: var(--button-text-color);
+		--button-hover-border-color: #0062cc;
+		height: unset;
+	}*/
+	&__menu {
+		@include flex(column);
+		min-width: 100%;
+		position: absolute;
+		opacity: 0;
+		top: calc(100% + 0.25rem);
+		left: 0;
+		visibility: hidden;
+		transition: opacity 0.3s ease, visibility 0.3s ease;
+		background-color: var(--main-background);
+		padding: 0.75rem 0;
+		border: 1px solid var(--main-border-color);
+		border-radius: 0.25rem;
+		z-index: 3;
+
+		&-item {
+			@include flex(row, null, center);
+			width: 100%;
+			height: 100%;
+			padding: 0.5rem 1rem;
+			white-space: nowrap;
+			min-height: 2rem;
+			column-gap: 0.5rem;
+			background-color: inherit;
+			border: 0;
+			border-radius: 0;
+			font-weight: 400;
+			&:hover {
+				background-color: var(--js-dropdown-menu-hover-background);
+				color: var(--js-dropdown-menu-hover-text);
+				border: 0;
+			}
+		}
+	}
+	&:is(.drop-down-left, [data-drop="down-left"]) .js-dropdown__menu {
+		top: calc(100% + 0.25rem);
+		left: unset;
+		right: 0;
+	}
+	&:is(.drop-left, [data-drop="left"]) .js-dropdown__menu {
+		top: 0;
+		left: unset;
+		right: calc(100% + 0.25rem);
+	}
+	&:is(.drop-down-right, [data-drop="down-right"]) .js-dropdown__menu {
+		top: calc(100% + 0.25rem);
+		left: 0;
+	}
+	&:is(.drop-right, [data-drop="right"]) .js-dropdown__menu {
+		top: 0;
+		left: calc(100% + 0.25rem);
+	}
+
+	&.open {
+		/*& > .js-dropdown__button {
+			--bg-color: #004e97;
+			--hover-bg-color: #004e97;
+			box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 50%);
+		}*/
+		& > .js-dropdown__menu {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+}

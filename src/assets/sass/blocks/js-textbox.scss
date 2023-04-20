@@ -1,0 +1,141 @@
+.js-textbox {
+	border: 0;
+	margin: 0;
+	/*padding: 0.35em 0.75em 0.625em 0.75em;*/
+	position: relative;
+	& > &__label {
+		position: absolute;
+		top: 50%;
+		left: 0.5rem;
+		font-size: 0.9rem;
+		padding: 2px 0.5rem;
+		translate: 0 -50%;
+		background-color: inherit;
+		line-height: 100%;
+		cursor: var(--js-textbox-default-background);
+		color: var(--js-textbox-default-text);
+		transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+	}
+
+	& > &__input {
+		border: 0;
+		border-bottom: 1.5px solid var(--js-textbox-default-border-color);
+		border-radius: 0;
+		padding: 0rem 0.5rem 0 0.5rem;
+		transition: border-bottom 0.3s ease;
+		height: 3rem;
+		width: 100%;
+		outline: none;
+		background-color: var(--js-textbox-default-background);
+		color: var(--js-textbox-default-text);
+		&::placeholder {
+			color: transparent;
+		}
+
+		&:is(:required, [required]) ~ .js-textbox__label::after {
+			content: "*";
+			color: var(--required-icon-color);
+		}
+
+		//solo cuando el placeholder este visible bajar el label
+		&:placeholder-shown ~ .js-textbox__label {
+			top: 50%;
+			font-size: 1rem;
+		}
+
+		&:focus {
+			border-bottom: 1.5px solid var(--js-textbox-active-border-color);
+			& ~ .js-textbox__label {
+				top: -0.5rem; //cuando el placeholder ya no este visible subir el label
+				color: var(--js-textbox-active-text);
+				font-size: 0.9rem;
+			}
+		}
+		&:disabled {
+			background-color: var(--button-disabled-background);
+			cursor: not-allowed;
+		}
+	}
+
+	&.outlined {
+		@include flex(row);
+		& > .js-textbox__input {
+			border-bottom: unset;
+			border: 1px solid rgba(192, 192, 192, 0.863);
+			border-radius: 0.5rem;
+			padding: 0 0.75rem;
+			/*&:placeholder-shown ~ .js-textbox__label {
+				top: 50%;
+			}*/
+			&:focus ~ .js-textbox__label {
+				top: -0.65rem;
+				font-size: 0.9rem;
+			}
+		}
+		& > .js-textbox__label {
+			top: -0.65rem;
+			left: 1rem;
+			padding: 0 0.5rem;
+		}
+	}
+
+	&.w-icon {
+		& > .svg-icon {
+			position: absolute;
+			top: calc(50% - 2px);
+			left: 0.75rem;
+			translate: 0 -50%;
+		}
+		& > .js-textbox__input {
+			padding-left: 3rem;
+			&:focus ~ .js-textbox__label {
+				top: -0.5rem;
+			}
+		}
+		& > .js-textbox__label {
+			top: -0.5rem;
+			left: 2.5rem;
+		}
+	}
+
+	&.js-txt-resize {
+		&.open > .js-textbox__label {
+			top: -0.65rem;
+			left: 1rem;
+			padding: 0 0.5rem;
+			font-size: 0.9rem;
+		}
+		& > .js-textbox__label {
+			cursor: text;
+			top: 50%;
+			font-size: 1rem;
+		}
+		& > .js-textbox__input {
+			min-height: 3rem;
+			height: fit-content;
+			line-height: 2.8rem;
+		}
+	}
+	&.js-char-counter {
+		&.open > .js-textbox__counter {
+			top: -0.65rem;
+			&::before {
+				font-size: 0.9rem;
+			}
+		}
+
+		& > .js-textbox__counter {
+			position: absolute;
+			right: 1rem;
+			top: 50%;
+			font-size: 1rem;
+			padding: 2px 0.5rem;
+			transform: translateY(-50%);
+			transition: top 0.3s ease, color 0.3s ease;
+			&::before {
+				transition: font-size 0.3s ease;
+				content: "[ " attr(data-char-count) " ]";
+			}
+		}
+	}
+}

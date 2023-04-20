@@ -1,0 +1,161 @@
+:root {
+	--mainFont: "Inter";
+
+	--main-color: hsl(226, 100%, 9%);
+	--main-background: hsl(0, 0%, 100%);
+	--main-border-color: hsl(0, 0%, 80%);
+	--icon-color: hsl(0, 0%, 67%);
+
+	--scroll-bar-track: hsl(0, 0%, 80%);
+	--scroll-bar-thumb: hsl(218, 39%, 53%);
+	--scroll-bar-remaining: hsl(0, 0%, 80%);
+
+	--navbar-background-color: hsl(240, 10%, 96%);
+
+	--required-icon-color: #dc3545; /*mostly for the textbox's asterisk "*" */
+
+	--textbox-background-color: var(--main-background);
+	--textbox-text-color: var(--main-color);
+	--textbox-border-color: hsl(0, 0%, 80%);
+
+	--js-textbox-default-background: inherit;
+	--js-textbox-default-text: inherit;
+	--js-textbox-default-border-color: rgba(192, 192, 192, 0.863);
+	--js-textbox-default-border: 1px solid var(--js-textbox-border-color);
+
+	--js-textbox-active-background: inherit;
+	--js-textbox-active-text: hsl(226, 100%, 33%);
+	--js-textbox-active-border-color: hsl(226, 100%, 33%);
+	--js-textbox-active-border: 1px solid var(--js-textbox-border-color);
+
+	--button-primary-background: var(--main-background);
+	--button-primary-text-color: var(--main-color);
+	--button-primary-border-color: hsl(0, 0%, 80%);
+	--button-primary-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+	--button-primary-hover-background: var(--button-primary-background);
+	--button-primary-hover-text-color: var(--button-primary-text-color);
+	--button-primary-hover-border-color: var(--button-primary-border-color);
+
+	--button-success-background: #28a745;
+	--button-success-text-color: #fff;
+	--button-success-border-color: transparent;
+	--button-success-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+	--button-success-hover-background: #1e7e34;
+	--button-success-hover-text-color: #fff;
+	--button-success-hover-border-color: transparent;
+
+	--button-warning-background: var(--main-background);
+	--button-warning-text-color: var(--main-color);
+	--button-warning-border-color: hsl(0, 0%, 80%);
+	--button-warning-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+	--button-warning-hover-background: var(--button-warning-background);
+	--button-warning-hover-text-color: var(--button-warning-text-color);
+	--button-warning-hover-border-color: var(--button-warning-border-color);
+
+	--button-danger-background: #dc3545;
+	--button-danger-text-color: #fff;
+	--button-danger-border-color: transparent;
+	--button-danger-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+	--button-danger-hover-background: #c82333;
+	--button-danger-hover-text-color: #fff;
+	--button-danger-hover-border-color: transparent;
+
+	--button-disabled-background: #e3e3e3;
+	--button-disabled-text-color: var(--main-color);
+	--button-disabled-border-color: hsl(0, 0%, 80%);
+	--button-disabled-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+	--button-disabled-hover-background: var(--button-disabled-background);
+	--button-disabled-hover-text-color: var(--button-disabled-text-color);
+	--button-disabled-hover-border-color: var(--button-disabled-border-color);
+
+	--select-background-color: var(--main-background);
+	--select-text-color: var(--main-color);
+	--select-border-color: hsl(0, 0%, 80%);
+
+	--select2-text: var(--main-color);
+	--select2-background: var(--main-background);
+	--select2-border-color: hsl(0, 0%, 80%);
+	--select2-search-icon-color: hsl(0, 0%, 67%);
+	--select2-hover-text: var(--main-color);
+	--select2-hover-background: hsl(0, 0%, 97%);
+	--select2-selected-text: var(--select2-text);
+	--select2-selected-background: hsl(0, 0%, 97%);
+
+	--datatable-container-background: var(--main-background);
+	--datatable-container-border: 1px solid #e7e7e7;
+
+	--datatable-toolbar-background: hsl(218, 39%, 53%);
+	--datatable-toolbar-text: hsl(0, 0%, 100%);
+	--datatable-toolbar-input-background: hsl(0, 0%, 100%);
+	--datatable-toolbar-input-text: hsl(0, 0%, 0%);
+	--datatable-toolbar-input-border: 1px solid transparent;
+
+	--datatable-pagination-button-text: hsl(221, 15%, 25%);
+	--datatable-pagination-button-disabled-text: hsl(0, 0%, 81%);
+	--datatable-pagination-button-disabled-hover-text: hsl(0, 0%, 76%);
+
+	--datatable-row-even-background: transparent;
+	--datatable-row-bottom-border-color: hsl(0, 0%, 91%);
+	--datatable-row-details-box-shadow: inset 0 -0.07rem 0 0 #cecece;
+
+	--datatable-details-close: #00cc44;
+	--datatable-details-close-hover: #00ee63;
+
+	--datatable-details-open: #cc0000;
+	--datatable-details-open-hover: #f70000;
+
+	--checkbox-default-text: var(--main-color);
+	--checkbox-default-background: transparent;
+	--checkbox-default-border-color: hsl(0, 0%, 80%);
+	--checkbox-default-border: 1px solid var(--checkbox-default-border-color);
+	--checkbox-default-transition: color 0.3s ease, background-color 0.3s ease, border 0.3s ease;
+
+	--checkbox-active-text: hsl(0, 0%, 100%);
+	--checkbox-active-background: hsl(218, 39%, 53%);
+	--checkbox-active-border: 1px solid hsl(218, 39%, 53%);
+
+	--js-spinner-container-width: 10rem;
+	--js-spinner-container-height: 10rem;
+	--js-spinner-width: 5rem;
+	--js-spinner-height: 5rem;
+	--js-spinner-border-width: 0.5rem;
+	--js-spinner-border-color: var(--required-icon-color);
+	--js-spinner-pos-y: 50%;
+	--js-spinner-pos-x: -1rem;
+
+	--js-dropdown-menu-hover-background: #94c3f5;
+	--js-dropdown-menu-hover-text: hsl(0, 0%, 22%);
+
+	--js-dropzone-background: hsla(207, 100%, 88%, 1);
+	--js-dropzone-border-color: hsl(0, 0%, 80%);
+	--js-dropzone-border: 1px solid var(--js-dropzone-border-color);
+	--js-dropzone-close-color: var(--required-icon-color);
+	--js-dropzone-progress-background: #fff;
+	--js-dropzone-progress-bar-background: #e7e7e7;
+
+	--badge-success-background: hsl(120, 60%, 60%);
+	--badge-success-text: hsl(238, 54%, 11%);
+	--badge-warning-background: hsl(46, 60%, 60%);
+	--badge-warning-text: hsl(0, 0%, 100%);
+	--badge-danger-background: hsl(0, 60%, 60%);
+	--badge-danger-text: hsl(0, 0%, 100%);
+	--badge-info-background: hsl(207, 60%, 60%);
+	--badge-info-text: hsl(0, 0%, 100%);
+
+	--slider-switch-background-off: var(--main-background);
+	--slider-switch-background-on: var(--datatable-toolbar-background);
+	--slider-switch-border: 1px solid var(--main-border-color);
+	--slider-switch-dot-off: hsl(218, 39%, 75%);
+	--slider-switch-dot-on: hsl(0, 0%, 100%);
+	--slider-switch-dot-border: 1px solid transparent;
+
+	--checkbox-off-background: tranparent;
+	--checkbox-off-text: inherit;
+	--checkbox-off-border-color: hsl(0 0% 0%);
+	--checkbox-off-border: 1px solid var(--checkbox-off-border-color);
+
+	--checkbox-on-background: var(--datatable-toolbar-background);
+	--checkbox-on-text: var(--datatable-toolbar-text);
+	--checkbox-on-border-color: transparent;
+	--checkbox-on-border: 1px solid var(--checkbox-on-border-color);
+}
