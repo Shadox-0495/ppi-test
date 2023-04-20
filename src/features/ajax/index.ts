@@ -7,7 +7,6 @@ export async function ajax(ajaxArgs: JQueryAjaxSettings = {}, data: any = {}, ty
 		type,
 		url,
 		dataType: "json",
-		contentType: "application/json; charset=utf-8",
 		timeout: 15000,
 	};
 	obj = mergeObjects(obj, ajaxArgs);

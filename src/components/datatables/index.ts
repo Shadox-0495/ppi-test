@@ -69,8 +69,6 @@ export default class dataTable {
 		});
 
 		if (this.type == "filter") this.conf = filterTable(this);
-		if (this.type == "simple") this.conf = simpleTable(this);
-		if (this.type == "server") this.conf = serverTable(this);
 	}
 
 	getColumn(columnName: string | string[]): Array<number> {
@@ -375,75 +373,6 @@ function filterTable(table: any) {
 			filter["add-controls"](el);
 		}
 	});
-
-	return conf;
-}
-
-function simpleTable(table: any) {
-	const conf = table.conf;
-	delete conf.serverSide;
-	delete conf.pageLength;
-	delete conf.pagingType;
-	delete conf.buttons;
-	delete conf.ajax;
-
-	conf.paging = false;
-	conf.order = [[0, "desc"]];
-	conf.dom = `<'js-dt-toolbar'<'js-dt-toolbar__add'>><t>`;
-	conf.responsive = {
-		details: {
-			renderer: (api: DataTables.Api, rowIdx: number, columns: any) => {
-				const data = $.map(columns, (col) => {
-					return col.hidden ? `<tr data-dt-row='${col.rowIndex}' data-dt-column='${col.columnIndex}'><td>${col.title}:</td><td>${col.data}</td></tr>` : "";
-				}).join("");
-				return data ? $("<table class='js-datatable__details' />").append(data) : false;
-			},
-		},
-	};
-	conf.columns[0].orderable = false;
-	conf.columnDefs = [
-		{
-			targets: 0,
-			width: "1%",
-			createdCell: (td: HTMLElement, data: string) => $(td).attr("data-id", `${data}`),
-			render: (data: any, row: any, type: any, meta: any) => {
-				return meta.row + 1;
-			},
-		},
-	];
-	return conf;
-}
-
-function serverTable(table: any) {
-	const conf = table.conf;
-	conf.order = [[0, "desc"]];
-	conf.dom = `<'js-dt-toolbar'f><t>p`;
-	conf.columnDefs = [];
-	conf.pageLength = 10;
-	conf.ajax.url = table.url;
-	conf.ajax.data = (dataSent: any) => {
-		dataSent = mergeObjects(dataSent, table.ajaxArgs);
-		const token = localStorage.getItem("token") || "";
-		if (token != "") dataSent.token = token;
-		dataSent.totalRecords = table.totalRecords;
-		return JSON.stringify(dataSent);
-	};
-	conf.ajax.dataSrc = (dataResponse: any) => {
-		if (table.totalRecords == 0) table.totalRecords = dataResponse.recordsTotal;
-		dataResponse.recordsTotal = table.totalRecords;
-		return dataResponse.data;
-	};
-	conf.ajax.beforeSend = () => {
-		if (table.$htmlTable.find("tbody tr.js-datatable__loading").length !== 0) return;
-		const loadingSpinner = `<tr class='js-datatable__loading' style='${table.$htmlTable.find("tbody>tr").length <= 0 ? "height:10rem;" : ""}' ><td colspan='${
-			table.$htmlTable.find(">thead th").length
-		}'><div class='js-loading-spinner' data-type='full-space' data-effect='blur'></div></td></tr>`;
-		if (table.$htmlTable.find("tbody>tr").length > 0) {
-			table.$htmlTable.find("tbody").prepend(loadingSpinner);
-		} else {
-			table.$htmlTable.find("tbody").html(loadingSpinner);
-		}
-	};
 
 	return conf;
 }

@@ -37,6 +37,8 @@ $("#content").append(compileTemplate("dataTable", templateData));
 
 let dt: any = new dataTable($("#dtDB"), undefined, { module: "user", action: "records" });
 
+console.log(dt.conf.ajax);
+
 dt = dt.initTable();
 
 $(dt.table().body()).on("click", (Event) => {
