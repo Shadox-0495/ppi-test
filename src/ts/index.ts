@@ -55,6 +55,14 @@ $(dt.table().body()).on("click", (Event) => {
 
 $(dt.table().container()).find(".js-dt-toolbar__add").attr({ "data-toggle": "modal", "data-target": "#modal-new-record" });
 
+$("#phone,#zip").on("keyup keydown", (Event) => {
+	const $element: JQuery<HTMLElement> = $(Event.currentTarget);
+	const allowedKeys = /[0-9\/]+/;
+	if (<number>$element.val() < 0) $element.val(0);
+	if (Event.key === "Backspace" || Event.key === "Delete" || Event.key === "ArrowLeft" || Event.key === "ArrowRight" || Event.key === "Tab") return;
+	if (!allowedKeys.test(<string>Event.key)) Event.preventDefault();
+});
+
 $("#record-form").on("submit", (e) => {
 	e.preventDefault();
 	saveRecord(dt);
@@ -169,5 +177,5 @@ async function deleteRecord(rowData: Record<string, string>, dt: DataTables.Api)
 
 function cleanModal() {
 	$("#modal-new-record").attr("data-record", "0");
-	$(`#modal-new-record *:is(input[type="text"],input[type="password"], textarea)`).val("");
+	$(`#modal-new-record *:is(input[type="text"],input[type="number"],input[type="password"], textarea)`).val("");
 }
