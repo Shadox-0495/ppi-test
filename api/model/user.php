@@ -8,7 +8,7 @@ class user{
     }
 
     public function records(){
-        $sql="SELECT t1.id,t1.firstName,t1.lastName,t1.email,t1.phone,t1.zip FROM user t1";
+        $sql="SELECT t1.id,t1.firstName,t1.lastName,t1.email,t1.phone,t1.zip,t1.dateCreated,t1.dateModified FROM user t1";
         return $sql;
     }
 
@@ -16,7 +16,7 @@ class user{
         try{
             $this->con->beginTransaction();
 
-            $sql="INSERT INTO user (firstName,lastName,email,phone,zip) VALUES (:firstName,:lastName,:email,:phone,:zip)";
+            $sql="INSERT INTO user (firstName,lastName,email,phone,zip,dateCreated) VALUES (:firstName,:lastName,:email,:phone,:zip,CURDATE())";
             $query=$this->con->prepare($sql);
             $query->execute([
                 ":firstName"=>$data["firstName"]
@@ -50,7 +50,7 @@ class user{
         try{
             $this->con->beginTransaction();
 
-            $sql="UPDATE user SET firstName=:firstName,lastName=:lastName,email=:email,phone=:phone,zip=:zip WHERE ID=:recordID";
+            $sql="UPDATE user SET firstName=:firstName,lastName=:lastName,email=:email,phone=:phone,zip=:zip,dateModified=CURDATE() WHERE ID=:recordID";
             $query=$this->con->prepare($sql);
             $query->execute([
                 ":recordID"=>$data["recordID"]

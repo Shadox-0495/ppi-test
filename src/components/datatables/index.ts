@@ -8,6 +8,7 @@ import { mergeObjects } from "@features/utils";
 import { showAlert } from "@components/alert";
 import { confDataTables, apiUrl } from "@features/configs";
 import { serverSelect2 } from "@components/select2";
+import { datePicker } from "@components/datepicker";
 
 $.fn.dataTable.ext.errMode = "none";
 
@@ -189,6 +190,8 @@ function filterTable(table: any) {
 	modalBody.append(`<button data-type="success" data-cmd='add-filter'><div class="svg-icon"><svg viewBox="-1 -1.5 15 15"> <use xlink:href="#svg-plus"></use></svg></div><span>Add filter</span></button>`);
 
 	const controls: any = {
+		date: () =>
+			`<label class="js-textbox outlined" data-date="start"><input class="js-textbox__input js-datepicker" data-name="value" type="text" placeholder="Desde"></label><span data-name="separator"></span><label class="js-textbox outlined" data-date="end"><input class="js-textbox__input js-datepicker" data-name="value" type="text" placeholder="Hasta"></label>`,
 		int: () => `<select>${dtNumberOperations}</select><label class="js-textbox outlined"><input class="js-textbox__input" data-name="value" type="number" placeholder=""></label>`,
 		string: () => `<select>${dtStringOperations}</select><label class="js-textbox outlined"><input class="js-textbox__input" data-name="value" type="text" placeholder=""></label>`,
 		id: () => `<select data-type="db-dt-filter" data-name="value"></select>`,
@@ -316,6 +319,26 @@ function filterTable(table: any) {
 
 				select.select2("open");
 			}
+			if (valueType == "date") {
+				const dateStartInput: HTMLElement = filter.find(`[data-date="start"]>.js-datepicker`)[0];
+				const dateEndInput: HTMLElement = filter.find(`[data-date="end"]>.js-datepicker`)[0];
+				//limit the date start so it doesn't go beyond the date end
+				const dateStart = datePicker(dateStartInput, {
+					onSelect({ date }: any) {
+						dateEnd?.update({
+							minDate: date,
+						});
+					},
+				});
+				//limit date end so it's doesn't go beyond the date start
+				const dateEnd = datePicker(dateEndInput, {
+					onSelect({ date }: any) {
+						dateStart?.update({
+							maxDate: date,
+						});
+					},
+				});
+			}
 		},
 		"delete-option": (el: any) => {
 			el = $(el);
@@ -336,6 +359,11 @@ function filterTable(table: any) {
 				let values: Array<string> = [];
 
 				if (type == "id") values = item.find(`.dt-filter-container__item_body > [data-name="value"]`).val();
+
+				if (type == "date") {
+					if (item.find(`[data-date="start"]>.js-datepicker`).val() != "") values.push(item.find(`[data-date="start"]>.js-datepicker`).val());
+					if (item.find(`[data-date="end"]>.js-datepicker`).val() != "") values.push(item.find(`[data-date="end"]>.js-datepicker`).val());
+				}
 
 				if (type == "int" || type == "string") {
 					operation = encodeURIComponent(item.find(">.dt-filter-container__item_body>select :selected").val());

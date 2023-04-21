@@ -44,6 +44,7 @@
 	},
 	"dependencies": {
 		"@popperjs/core": "^2.11.7",
+		"air-datepicker": "^3.3.5",
 		"change-case": "^4.1.2",
 		"datatables.net": "^1.13.4",
 		"datatables.net-buttons": "^2.3.6",

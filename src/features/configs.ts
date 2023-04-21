@@ -1,4 +1,6 @@
 import { mergeObjects } from "@features/utils";
+import { createPopper } from "@popperjs/core";
+import localES from "air-datepicker/locale/es";
 
 export function confDataTables(args: any = {}) {
 	const conf: any = {
@@ -100,6 +102,47 @@ export function confDataTables(args: any = {}) {
 
 export function confSweetAlert(args = {}) {
 	const obj = { showConfirmButton: false, showCancelButton: false, allowOutsideClick: false, cancelButtonText: "Cancelar" };
+	return mergeObjects(obj, args);
+}
+
+export function confDatePicker(args = {}) {
+	const obj = {
+		autoClose: true,
+		multipleDatesSeparator: " - ",
+		dateFormat: "yyyy/MM/dd",
+		locale: localES,
+		position({ $datepicker, $target, $pointer, done }: { $datepicker: HTMLDivElement; $target: HTMLInputElement; $pointer: HTMLElement; done: () => void }) {
+			const popper = createPopper($target, $datepicker, {
+				placement: "top",
+				modifiers: [
+					{
+						name: "flip",
+						options: {
+							padding: {
+								top: 100,
+							},
+						},
+					},
+					{
+						name: "offset",
+						options: {
+							offset: [0, 5],
+						},
+					},
+					{
+						name: "arrow",
+						options: {
+							element: $pointer,
+						},
+					},
+				],
+			});
+			return function completeHide() {
+				popper.destroy();
+				done();
+			};
+		},
+	};
 	return mergeObjects(obj, args);
 }
 

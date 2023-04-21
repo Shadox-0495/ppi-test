@@ -28,17 +28,20 @@ const templateData = {
 			{ id: "t1.email", type: "string", class: "", label: "Email Address" },
 			{ id: "t1.phone", type: "string", class: "", label: "Phone Number" },
 			{ id: "t1.zip", type: "string", class: "", label: "Residential Zip Code" },
+			{ id: "t1.dateCreated", type: "date", class: "", label: "Date created" },
+			{ id: "t1.dateModified", type: "date", class: "", label: "Date modified" },
 			{ id: "-1", export: "n", type: "", class: "all", label: "" },
 		],
 	],
 };
+
 const modalContent = compileTemplate("user");
+
 $("body").append(`<js-modal id="modal-new-record" data-record="0">${modalContent()}</js-modal>`);
+
 $("#content").append(compileTemplate("dataTable", templateData));
 
 let dt: any = new dataTable($("#dtDB"), undefined, { module: "user", action: "records" });
-
-console.log(dt.conf.ajax);
 
 dt = dt.initTable();
 
