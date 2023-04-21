@@ -1,9 +1,9 @@
 <?php
 class db{
-    private $Server="192.168.1.15";
-    private $User="root";
-    private $Pass="root";
-    private $DB="ppi";
+    private $Server="SERVER_IP";
+    private $User="MYSQL_USER";
+    private $Pass="MYSQL_USER_PASSWORD";
+    private $DB="MYSQL_DB";
 
     public function __construct(){}
     public function dbConnect(){
