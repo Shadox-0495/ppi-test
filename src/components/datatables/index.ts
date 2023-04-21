@@ -212,7 +212,7 @@ function filterTable(table: any) {
 					<div class="dt-filter-container__item_header">
 						<div data-name="title">
 							<button data-cmd="delete-filter" data-type="danger"><div class="svg-icon"><svg viewBox="0 0 12 12"> <use xlink:href="#svg-times"></use></svg></div></button>
-							<select class="js-select" data-name="column-select"><option value='' data-type='null'></option>${options}</select>
+							<select class="js-select" data-name="column-select"><option value='' data-type='null'>Select a field</option>${options}</select>
 							<button data-toggle="collapse" data-target="parent(3)"> <div class="svg-icon"><svg viewBox="0 0 12 7"> <use xlink:href="#svg-angle-down"></use></svg></div> </button>
 						</div>
 					</div>
@@ -232,10 +232,23 @@ function filterTable(table: any) {
 		"add-controls": (el: any) => {
 			el = $(el);
 			const valueType: any = el.find(":selected").attr("data-type");
-			if (valueType == "null") return;
+
+			if (valueType == "null") {
+				const filter = el.closest(".dt-filter-container__item");
+				if (filter.find(">.dt-filter-container__item_body>*").length > 0) {
+					if (filter.find("select[data-name='value']").length > 0) filter.find("select[data-name='value']").select2("destroy");
+					filter.find(">.dt-filter-container__item_body").empty();
+					filter.find(">.dt-filter-container__item_body").closest(".dt-filter-container__item").removeClass("open");
+				}
+				return;
+			}
+
 			const container = el.closest(".dt-filter-container");
+
 			const column = el.val();
+
 			let duplicated = false;
+
 			container.find(`select[data-name="column-select"]`).each((index: number, element: HTMLElement) => {
 				if (element == el[0]) return;
 				duplicated = $(element).val() == column;
@@ -244,18 +257,21 @@ function filterTable(table: any) {
 
 			if (duplicated) {
 				el.val("");
-				showAlert("", "error", `Esa columna ya esta seleccionada.`, { timer: 3000 });
+				showAlert("", "error", `That field is already selected, please select other field.`, { timer: 3000 });
 				return;
 			}
 
 			const filter = el.closest(".dt-filter-container__item");
 
 			if (filter.find(`ul[data-name="db-dt-filter-list"]`).length > 0 && valueType != "id") filter.find(`ul[data-name="db-dt-filter-list"]`).remove();
+
 			if (filter.find(">.dt-filter-container__item_body>*").length > 0) {
 				if (filter.find("select[data-name='value']").length > 0) filter.find("select[data-name='value']").select2("destroy");
 				filter.find(">.dt-filter-container__item_body").empty();
 			}
+
 			filter.addClass("open").attr("data-value-type", valueType);
+
 			filter.find(">.dt-filter-container__item_body").append(controls[valueType]());
 
 			if (valueType == "id") {
