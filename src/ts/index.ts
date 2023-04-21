@@ -3,6 +3,7 @@ import { onlySpaces, validEmail } from "@features/utils";
 import dataTable, { rowDataToObject } from "@components/datatables";
 import { ajax } from "@features/ajax";
 import Swal, { showAlert } from "@components/alert";
+import Inputmask from "inputmask";
 import { actions } from "@features/configs";
 
 interface sentData {
@@ -55,13 +56,18 @@ $(dt.table().body()).on("click", (Event) => {
 
 $(dt.table().container()).find(".js-dt-toolbar__add").attr({ "data-toggle": "modal", "data-target": "#modal-new-record" });
 
-$("#phone,#zip").on("keyup keydown", (Event) => {
-	const $element: JQuery<HTMLElement> = $(Event.currentTarget);
-	const allowedKeys = /[0-9\/]+/;
-	if (<number>$element.val() < 0) $element.val(0);
-	if (Event.key === "Backspace" || Event.key === "Delete" || Event.key === "ArrowLeft" || Event.key === "ArrowRight" || Event.key === "Tab") return;
-	if (!allowedKeys.test(<string>Event.key)) Event.preventDefault();
-});
+let textboxMask = new Inputmask({ regex: String.raw`^[A-Za-z]*$` });
+textboxMask.mask(<HTMLElement>document.querySelector("#firstName"));
+textboxMask.mask(<HTMLElement>document.querySelector("#lastName"));
+
+textboxMask = new Inputmask({ regex: String.raw`^\w+([\.-]?\w+)*@\w*\.(\w{2,4})+$` });
+textboxMask.mask(<HTMLElement>document.querySelector("#email"));
+
+textboxMask = new Inputmask({ regex: String.raw`([0-9]){4}-([0-9]){4}` });
+textboxMask.mask(<HTMLElement>document.querySelector("#phone"));
+
+textboxMask = new Inputmask({ regex: String.raw`([0-9]){5}` });
+textboxMask.mask(<HTMLElement>document.querySelector("#zip"));
 
 $("#record-form").on("submit", (e) => {
 	e.preventDefault();
